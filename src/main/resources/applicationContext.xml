@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd
-        ">
+        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 
+	<context:component-scan base-package="com.ssm.service"></context:component-scan>
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
     	<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
-    	<property name="url" value="jdbc:mysql://localhost:3306/mybatis?useSSL=false"></property>
+    	<property name="url" value="jdbc:mysql://localhost:3306/work?useSSL=false"></property>
     	<property name="username" value="root"></property>
     	<property name="password" value="root"></property>
     </bean>
@@ -17,12 +18,12 @@
     <bean id="factory" class="org.mybatis.spring.SqlSessionFactoryBean">
     	<property name="dataSource" ref="dataSource"></property>
 		<!--配置pojo包下的类不需要写包名-->
-		<property name="typeAliasesPackage" value="com.sp.pojo"></property>
+		<property name="typeAliasesPackage" value="com.ssm.pojo"></property>
     </bean>
     
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
     		<!-- 需要扫描哪个包 -->                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
-    	<property name="basePackage" value="com.sp.mapper"></property>
+    	<property name="basePackage" value="com.ssm.mapper"></property>
     	<property name="SqlSessionFactory" ref="factory"></property>
     </bean>
 
