@@ -13,26 +13,51 @@ import javax.servlet.http.HttpSession;
 public class LoginResController {
 
     @Resource
-    UserService service;
+    UserService userservice;
 
     @RequestMapping("login")
     public String login(HttpServletRequest request, String username, String password){
 
         System.out.println(username + password);
-        User isUser =  service.findByName(username);
+        User isUser =  userservice.findByName(username);
 
         if (username == null || password == null){
-            request.setAttribute("msg", "请输入用户名密码qqq");
-            return "error";
+            request.setAttribute("msg", "请输入用户名密码");
+            return "redirect:/index.jsp";
         }else if (isUser == null){
-            request.setAttribute("msg", "用户名密码不匹配qqq");
-            return "error";
+            request.setAttribute("msg", "用户名密码不匹配");
+            return "redirect:/index.jsp";
         }else if (isUser != null){
             HttpSession session = request.getSession();
             session.setAttribute("user", isUser);
             return "success";
         }
-        return "error";
+        return "redirect:/index.jsp";
     }
 
+    @RequestMapping("register")
+    public String register(){
+        return "register";
+    }
+
+    @RequestMapping("register2")
+    public String register2(HttpServletRequest request,User user) {
+        if (user.getUsername() == null || user.getPassword() == null) {
+            return "register";
+        } else {
+            System.out.println(user.toString());
+            //判断数据库是不是有该用户
+            boolean isSuccess = userservice.addUser(user);
+            System.out.println(isSuccess);
+            if (isSuccess == false) {
+                //往数据库添加新用户
+                userservice.addNewNameSpace(user);
+                //返回登陆页面
+                return "redirect:/index.jsp";
+            } else {
+                request.setAttribute("msg", "注册失败");
+                return "register";
+            }
+        }
+    }
 }

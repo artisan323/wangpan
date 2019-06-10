@@ -1,9 +1,7 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="utf-8" %>
-<!DOCTYPE html>
-<html lang="en">
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Login</title>
+    <title>注册</title>
     <style type="text/css">
         html{
             width: 100%;
@@ -68,15 +66,15 @@
     </style>
 </head>
 <body>
+
 <div id="login">
-    <h1>Login</h1>
-    <h3>${requestScope.msg}</h3>
-    <form method="post" action="/login">
-        <input type="text" required="required" placeholder="用户名" name="username" >
-        <input type="password" required="required" placeholder="密码" name="password">
-        <button class="but" type="submit">登录</button>
-        <a href="/register" class="but">注册</a>
+    <h1>注册</h1>
+    <form method="post" action="/register2">
+        <input type="text" required="required" placeholder="请输入用户名" name="username">
+        <input type="password" required="required" placeholder="请输入密码" name="password">
+        <button class="but" type="submit">确认</button>
     </form>
 </div>
+
 </body>
 </html>
