@@ -30,7 +30,7 @@ public class LoginResController {
         }else if (isUser != null){
             HttpSession session = request.getSession();
             session.setAttribute("user", isUser);
-            return "success";
+            return "show";
         }
         return "redirect:/index.jsp";
     }
@@ -53,7 +53,7 @@ public class LoginResController {
                 //往数据库添加新用户
                 userservice.addNewNameSpace(user);
                 //返回登陆页面
-                return "redirect:/index.jsp";
+                return "redirect:/success.jsp";
             } else {
                 request.setAttribute("msg", "注册失败");
                 return "register";

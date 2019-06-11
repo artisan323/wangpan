@@ -29,4 +29,7 @@
         <property name="suffix" value=".jsp"></property>
     </bean>
 
+    <!--配置Mutipart解析器-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
+
 </beans>
