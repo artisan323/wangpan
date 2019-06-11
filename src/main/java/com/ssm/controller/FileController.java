@@ -82,4 +82,10 @@ public class FileController {
 
         return Msg.success().add("list", list);
     }
+
+    //下载文件请求
+    @RequestMapping("/down")
+    public void down(@RequestParam(defaultValue = "1") int fileId){
+        System.out.println("文件下载" + fileId);
+    }
 }

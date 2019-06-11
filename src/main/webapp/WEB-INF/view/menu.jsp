@@ -31,12 +31,20 @@
             //获取所有文件数据
             var files = result.extend.list;
             $.each(files, function (index, item) {
-                var filename = $("<td></td>").append(item.fileName)
+                var filename = $("<td></td>").append(item.fileName);
+                var downicon = $("<button></button>").addClass("btn btn-primary btn-sm").append($("<a></a>").attr("href", "/down?fileId="+item.fileId))
+                    .append($("<span></span>").addClass("glyphicon glyphicon-download-alt"));
                 var filesize = $("<td></td>").append(item.fileSize);
 
-                $("<tr></tr>").append(filename).append(filesize).appendTo("#emp_table tbody");
+
+                $("<tr></tr>").append(filename).append(filesize).append(downicon).appendTo("#emp_table tbody");
             });
         }
+
+
+
+        //点击下载按钮下载文件
+
 
     </script>
 </head>
@@ -97,6 +105,7 @@
                         <tr>
                             <th>文件名</th>
                             <th>文件大小</th>
+                            <th>文件下载</th>
                         </tr>
                     </thead>
 
