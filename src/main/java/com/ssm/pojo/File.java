@@ -6,6 +6,16 @@ public class File {
     private String userName;
     private String filePath;
     private String fileName;
+    private Long fileSize;
+
+
+    public Long getFileSize() {
+        return fileSize;
+    }
+
+    public void setFileSize(Long fileSize) {
+        this.fileSize = fileSize;
+    }
 
     public String getFileName() {
         return fileName;
@@ -46,6 +56,7 @@ public class File {
                 ", userName='" + userName + '\'' +
                 ", filePath='" + filePath + '\'' +
                 ", fileName='" + fileName + '\'' +
+                ", fileSize=" + fileSize +
                 '}';
     }
 }

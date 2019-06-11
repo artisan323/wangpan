@@ -28,9 +28,13 @@
         function build_emps_table(result) {
             //每次加载页面都要先清空原理来数据
             $("#emp_table tbody").empty();
+            //获取所有文件数据
             var files = result.extend.list;
             $.each(files, function (index, item) {
+                var filename = $("<td></td>").append(item.fileName)
+                var filesize = $("<td></td>").append(item.fileSize);
 
+                $("<tr></tr>").append(filename).append(filesize).appendTo("#emp_table tbody");
             });
         }
 
@@ -91,10 +95,13 @@
                 <table class="table table-hover" id="emp_table">
                     <thead>
                         <tr>
-
+                            <th>文件名</th>
+                            <th>文件大小</th>
                         </tr>
                     </thead>
+
                     <tbody>
+
                     </tbody>
                 </table>
 

@@ -51,14 +51,15 @@ public class FileController {
         //得到用户对象
         User user = (User) session.getAttribute("user");
 
+        //获取文件大小
+        Long len = uploadFile.getSize();
+
         //保存到file表中
         file.setUserName(user.getUsername());
         file.setFilePath(upPath);
         file.setFileName(upfileName);
+        file.setFileSize(len);
         fileService.saveFile(file);
-
-        //获取文件大小
-        Long len = uploadFile.getSize();
 
         System.out.println(len);
 
