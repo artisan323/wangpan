@@ -30,7 +30,7 @@ public class LoginResController {
         }else if (isUser != null){
             HttpSession session = request.getSession();
             session.setAttribute("user", isUser);
-            return "show";
+            return "menu";
         }
         return "redirect:/index.jsp";
     }

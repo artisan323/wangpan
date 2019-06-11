@@ -5,6 +5,15 @@ public class File {
     private int fileId;
     private String userName;
     private String filePath;
+    private String fileName;
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
 
     public int getFileId() {
         return fileId;
@@ -36,6 +45,7 @@ public class File {
                 "fileId=" + fileId +
                 ", userName='" + userName + '\'' +
                 ", filePath='" + filePath + '\'' +
+                ", fileName='" + fileName + '\'' +
                 '}';
     }
 }
