@@ -39,7 +39,7 @@ public class FileController {
         System.out.println(upfileName);
 
         //手动设置文件保存路径
-        String upPath = "/Users/wannengqingnian/MyCode/NetworkDiskSharing/src/main/webapp/uploadfile";
+        String upPath = "/Users/wannengqingnian/MyCode/NetworkDiskSharing/src/main/webapp/uploadfile/";
 
         //通过随机数来设置文件保存时名称
         String suffix = upfileName.substring(upfileName.lastIndexOf("."));
@@ -59,6 +59,7 @@ public class FileController {
         file.setFilePath(upPath);
         file.setFileName(upfileName);
         file.setFileSize(len);
+        file.setSaveName(upfileName);
         fileService.saveFile(file);
 
         System.out.println(len);
@@ -85,6 +86,7 @@ public class FileController {
 
     //下载文件请求
     @RequestMapping("/down")
+    @ResponseBody
     public void down(@RequestParam(defaultValue = "1") int fileId){
         System.out.println("文件下载" + fileId);
     }

@@ -32,19 +32,29 @@
             var files = result.extend.list;
             $.each(files, function (index, item) {
                 var filename = $("<td></td>").append(item.fileName);
-                var downicon = $("<button></button>").addClass("btn btn-primary btn-sm").append($("<a></a>").attr("href", "/down?fileId="+item.fileId))
+                var downicon = $("<button></button>").addClass("btn btn-primary btn-sm downfile")
                     .append($("<span></span>").addClass("glyphicon glyphicon-download-alt"));
+                //为下载按钮添加自定义属性保存文件id
+                downicon.attr("fileid", item.fileId);
+
                 var filesize = $("<td></td>").append(item.fileSize);
 
-
                 $("<tr></tr>").append(filename).append(filesize).append(downicon).appendTo("#emp_table tbody");
+
             });
         }
 
 
 
-        //点击下载按钮下载文件
+        //点击下载按钮下载文件添加绑定事件
+        $(document).on("click", ".downfile", function () {
+            //获取id值
+            getfileId($(this).attr("fileid"))
+        })
 
+        function getfileId(id) {
+            location.href="/down?fileId=" + id;
+        }
 
     </script>
 </head>

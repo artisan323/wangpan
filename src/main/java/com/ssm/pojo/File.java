@@ -7,7 +7,24 @@ public class File {
     private String filePath;
     private String fileName;
     private Long fileSize;
+    private int fileType;
+    private String saveName;
 
+    public String getSaveName() {
+        return saveName;
+    }
+
+    public void setSaveName(String saveName) {
+        this.saveName = saveName;
+    }
+
+    public int getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(int fileType) {
+        this.fileType = fileType;
+    }
 
     public Long getFileSize() {
         return fileSize;
@@ -57,6 +74,8 @@ public class File {
                 ", filePath='" + filePath + '\'' +
                 ", fileName='" + fileName + '\'' +
                 ", fileSize=" + fileSize +
+                ", fileType=" + fileType +
+                ", saveName='" + saveName + '\'' +
                 '}';
     }
 }

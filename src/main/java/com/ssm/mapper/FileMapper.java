@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface FileMapper {
 
-    @Insert("insert into file(userName, filePath, fileName, fileSize) values(#{userName}, #{filePath}, #{fileName}, #{fileSize})")
+    @Insert("insert into file(userName, filePath, fileName, fileSize, saveName) values(#{userName}, #{filePath}, #{fileName}, #{fileSize}, #{saveName})")
     void insFile(File file);
 
     @Select("select * from file where userName = #{username}")

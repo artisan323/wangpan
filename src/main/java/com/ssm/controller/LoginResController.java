@@ -53,7 +53,7 @@ public class LoginResController {
                 //往数据库添加新用户
                 userservice.addNewNameSpace(user);
                 //返回登陆页面
-                return "redirect:/success.jsp";
+                return "redirect:/menu.jsp";
             } else {
                 request.setAttribute("msg", "注册失败");
                 return "register";
