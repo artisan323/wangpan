@@ -4,7 +4,7 @@
 %>
 <html>
 <head>
-    <title>Title</title>
+    <title>拴蛋网盘</title>
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="${APP_PATH}/static/css/Login.css" />
     <style type="text/css">
@@ -53,7 +53,7 @@
             border-top-right-radius: 0;
         }
 
-    </style>
+    </style>`
 </head>
 <body>
     <form class="form-signin" method="post" action="/login">
@@ -65,6 +65,5 @@
         <button class="btn btn-lg btn-primary btn-block" type="submit">登陆</button>
         <button class="btn btn-lg btn-primary btn-block" onclick="location.href='/register'">注册</button>
     </form>
-
 </body>
 </html>

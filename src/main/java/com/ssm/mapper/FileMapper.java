@@ -17,4 +17,5 @@ public interface FileMapper {
 
     @Select("select * from file where fileId = #{id}")
     File selFileByFileId(int id);
+
 }

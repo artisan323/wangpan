@@ -5,11 +5,10 @@ import com.ssm.pojo.Msg;
 import com.ssm.pojo.User;
 import com.ssm.service.FileService;
 import com.ssm.service.UserService;
+import com.ssm.utils.ZipUtils;
 import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -17,9 +16,14 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
+
 
 @Controller
 public class FileController {
@@ -106,5 +110,97 @@ public class FileController {
         so.flush();
         so.close();
         System.out.println("文件下载" + fileId);
+    }
+
+    //多文件下载
+    @RequestMapping(value = "/downs")
+    @ResponseBody
+    public void downs(String downids, HttpServletResponse response, HttpServletRequest request) throws IOException {
+
+        System.out.println("downids = "+downids);
+
+        //封装所有id值
+        String[] ids = downids.split("-");
+
+        //获取所有下载的文件对象id
+        List<Integer> listId = new ArrayList<>();
+        for (int i = 0; i < ids.length; i++){
+            listId.add(Integer.parseInt(ids[i]));
+        }
+
+        //获取所有下载的文件对象id
+        List<File> fileList = fileService.getFileList(listId);//查询数据库中记录
+
+        String path = "/Users/wannengqingnian/MyCode/NetworkDiskSharing/src/main/webapp/uploadfile/";
+
+
+        //响应头的设置
+        response.reset();
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("multipart/form-data");
+
+        //设置压缩包的名字
+        //解决不同浏览器压缩包名字含有中文时乱码的问题
+        String downloadName = "files.zip";
+        String agent = request.getHeader("USER-AGENT");
+        try {
+            if (agent.contains("MSIE")||agent.contains("Trident")) {
+                downloadName = java.net.URLEncoder.encode(downloadName, "UTF-8");
+            } else {
+                downloadName = new String(downloadName.getBytes("UTF-8"),"ISO-8859-1");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        response.setHeader("Content-Disposition", "attachment;fileName=\"" + downloadName + "\"");
+
+        //设置压缩流：直接写入response，实现边压缩边下载
+        ZipOutputStream zipos = null;
+        try {
+            zipos = new ZipOutputStream(new BufferedOutputStream(response.getOutputStream()));
+            zipos.setMethod(ZipOutputStream.DEFLATED); //设置压缩方法
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //循环将文件写入压缩流
+        DataOutputStream os = null;
+        int size = fileList.size();
+        for(int i = 0; i < size; i++ ){
+
+            File myfile = fileList.get(i);
+
+            java.io.File file = new java.io.File(path+myfile.getSaveName());
+            try {
+                //添加ZipEntry，并ZipEntry中写入文件流
+                //这里，加上i是防止要下载的文件有重名的导致下载失败
+                zipos.putNextEntry(new ZipEntry(i + myfile.getSaveName()));
+                os = new DataOutputStream(zipos);
+                InputStream is = new FileInputStream(file);
+                byte[] b = new byte[100];
+                int length = 0;
+                while((length = is.read(b))!= -1){
+                    os.write(b, 0, length);
+                }
+                is.close();
+                zipos.closeEntry();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        //关闭流
+        try {
+            os.flush();
+            os.close();
+            zipos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
     }
 }

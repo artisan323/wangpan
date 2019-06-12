@@ -4,7 +4,7 @@
 %>
 <html>
 <head>
-    <title>Title</title>
+    <title>拴蛋网盘</title>
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="${APP_PATH}/static/css/Login.css" />
     <style type="text/css">

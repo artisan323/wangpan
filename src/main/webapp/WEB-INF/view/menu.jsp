@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title></title>
+    <title>拴蛋网盘</title>
     <%
         application.setAttribute("APP_PATH", request.getContextPath());
     %>
@@ -31,6 +31,9 @@
             //获取所有文件数据
             var files = result.extend.list;
             $.each(files, function (index, item) {
+
+                var checkbox = $("<td><input type='checkbox' class='check_item'></td>")
+                var fileid = $("<td></td>").append(item.fileId);
                 var filename = $("<td></td>").append(item.fileName);
                 var downicon = $("<button></button>").addClass("btn btn-primary btn-sm downfile")
                     .append($("<span></span>").addClass("glyphicon glyphicon-download-alt"));
@@ -39,11 +42,16 @@
 
                 var filesize = $("<td></td>").append(item.fileSize);
 
-                $("<tr></tr>").append(filename).append(filesize).append(downicon).appendTo("#emp_table tbody");
+                $("<tr></tr>")
+                    .append(checkbox)
+                    .append(fileid)
+                    .append(filename)
+                    .append(filesize)
+                    .append(downicon)
+                    .appendTo("#emp_table tbody");
 
             });
         }
-
 
 
         //点击下载按钮下载文件添加绑定事件
@@ -51,9 +59,22 @@
             //获取id值
             getfileId($(this).attr("fileid"))
         })
-
         function getfileId(id) {
             location.href="/down?fileId=" + id;
+        }
+
+
+        //点击批量下载，下载多个文件
+        function downcheck() {
+
+            var downids = "";
+            $.each($(".check_item:checked"), function () {
+               downids += $(this).parents("tr").find("td").eq(1).text()+"-";
+            });
+            //去除多余-
+            downids = downids.substring(0, downids.length-1);
+            //发送ajax请求
+            location.href="/downs?downids="+downids;
         }
 
     </script>
@@ -113,9 +134,15 @@
                 <table class="table table-hover" id="emp_table">
                     <thead>
                         <tr>
+                            <th>选择</th>
+                            <th>文件id</th>
                             <th>文件名</th>
                             <th>文件大小</th>
-                            <th>文件下载</th>
+                            <th>下载</th>
+                            <th><button id="down_check" class="btn btn-primary btn-sm" onclick="downcheck()">
+                                批量下载
+                            </button></th>
+
                         </tr>
                     </thead>
 
