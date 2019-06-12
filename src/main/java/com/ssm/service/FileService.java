@@ -25,6 +25,11 @@ public class FileService {
         return list;
     }
 
+    //按照文件名称下载文件
+    public File selFileByFileId(int id){
+        return fileMapper.selFileByFileId(id);
+    }
+
 
 
 }

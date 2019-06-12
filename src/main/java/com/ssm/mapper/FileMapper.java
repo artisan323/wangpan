@@ -14,4 +14,7 @@ public interface FileMapper {
 
     @Select("select * from file where userName = #{username}")
     List<File> selFileByUsername(User user);
+
+    @Select("select * from file where fileId = #{id}")
+    File selFileByFileId(int id);
 }

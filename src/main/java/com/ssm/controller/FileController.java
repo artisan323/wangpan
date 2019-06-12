@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
@@ -59,7 +62,7 @@ public class FileController {
         file.setFilePath(upPath);
         file.setFileName(upfileName);
         file.setFileSize(len);
-        file.setSaveName(upfileName);
+        file.setSaveName(uuid+suffix);
         fileService.saveFile(file);
 
         System.out.println(len);
@@ -87,7 +90,21 @@ public class FileController {
     //下载文件请求
     @RequestMapping("/down")
     @ResponseBody
-    public void down(@RequestParam(defaultValue = "1") int fileId){
+    public void down(int fileId, HttpServletResponse res, HttpServletRequest req) throws IOException {
+
+        //得到文件名称
+        File myfile = fileService.selFileByFileId(fileId);
+        String filename = myfile.getSaveName();
+        System.out.println(myfile);
+
+        res.setHeader("Content-Disposition", "attachment;filename=" + filename);
+        ServletOutputStream so = res.getOutputStream();
+        String path = "/Users/wannengqingnian/MyCode/NetworkDiskSharing/src/main/webapp/uploadfile";
+        java.io.File file = new java.io.File(path, filename);
+        byte[] bytes = FileUtils.readFileToByteArray(file);
+        so.write(bytes);
+        so.flush();
+        so.close();
         System.out.println("文件下载" + fileId);
     }
 }
