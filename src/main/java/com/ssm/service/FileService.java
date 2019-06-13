@@ -16,10 +16,15 @@ public class FileService {
     @Resource
     FileMapper fileMapper;
 
+    //保存文件
     public void saveFile(File file){
         fileMapper.insFile(file);
     }
 
+    //获取文件属性
+    public int selFileTypeById(int id){
+        return fileMapper.selFileTypeById(id);
+    }
 
     //按照用户名查找所有文件
     public List<File> selFileByUsername(User user){
@@ -40,7 +45,6 @@ public class FileService {
     public File selFileByFileId(int id){
         return fileMapper.selFileByFileId(id);
     }
-
 
     //判断文件类型
     public int getFiletype(String type){
@@ -116,8 +120,20 @@ public class FileService {
     }
 
     //删除单个文件
-    public void delFileById(int id){
-        fileMapper.delFileById(id);
+    public void delFileById(int delids){
+
+        String path = "/Users/wannengqingnian/MyCode/NetworkDiskSharing/src/main/webapp/uploadfile/";
+
+        //本地删除
+        String filename = fileMapper.selFileByFileId(delids).getSaveName();
+        java.io.File file = new java.io.File(path+filename);
+        if(file.exists()){
+            file.delete();
+        }
+
+        //数据库删除
+        fileMapper.delFileById(delids);
+        System.out.println("delect " + delids + " success");
     }
 
     //删除多个文件

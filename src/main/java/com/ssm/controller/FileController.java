@@ -223,43 +223,29 @@ public class FileController {
     @ResponseBody
     public Msg del(String delids){
 
-        String path = "/Users/wannengqingnian/MyCode/NetworkDiskSharing/src/main/webapp/uploadfile/";
 
-        //判断是否删除单文件
+        //单文件夹删除
+//        int dir = Integer.parseInt(delids);
+//        if (fileService.selFileTypeById(dir) == 6){
+//
+//        }
+
         if (delids.contains("-") == false){
-
-            System.out.println("1");
-            //删除单个文件
+            //删除单文件
             int id = Integer.parseInt(delids);
-
-            //本地删除
-            String filename = fileService.selFileByFileId(id).getSaveName();
-            java.io.File file = new java.io.File(path+filename);
-            if(file.exists()&&file.isFile()){
-                file.delete();
-            }
-
-            //数据库删除
             fileService.delFileById(id);
-            System.out.println("delect " + id + " success");
-
         }else {
-            System.out.println("2");
+            //删除多文件
             fileService.delFileByIdList(delids);
         }
         return Msg.success().add("success", "删除成功");
-
     }
-
 
     //创建文件夹
     @RequestMapping("/mkdir")
     public String mkdir(String dirname, HttpSession session){
-        System.out.println("mkdir :" + dirname);
-
         User user = (User) session.getAttribute("user");
         fileService.mkdir(dirname, user.getUsername());
-
         return "menu";
     }
 }

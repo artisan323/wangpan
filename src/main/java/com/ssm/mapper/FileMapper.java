@@ -22,4 +22,6 @@ public interface FileMapper {
     @Delete("delete from file where fileId = #{id}")
     void delFileById(int id);
 
+    @Select("select fileType from file where fileId = #{id}")
+    int selFileTypeById(int id);
 }

@@ -112,10 +112,10 @@
                 type:"GET",
                 success:function (result) {
                     alert(result.extend.success);
+                    //window.location.reload();
                 }
             });
         }
-
     </script>
 </head>
 <body>
