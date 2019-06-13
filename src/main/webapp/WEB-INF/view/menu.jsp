@@ -1,7 +1,9 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%><html>
 <head>
     <title>拴蛋网盘</title>
+    <meta charset="UTF-8">
+
     <%
         application.setAttribute("APP_PATH", request.getContextPath());
     %>
@@ -19,7 +21,9 @@
                 success : function (result) {
                     //显示表格信息
                     build_emps_table(result);
-
+                    if (result.code == "400"){
+                        alert("没有此类型文件")
+                    }
                 }
             });
         }
@@ -73,7 +77,7 @@
             });
             //去除多余-
             downids = downids.substring(0, downids.length-1);
-            //发送ajax请求
+            //发送请求
             location.href="/downs?downids="+downids;
         }
 
@@ -106,12 +110,13 @@
             <%--左侧栏--%>
             <div class="col-sm-3">
                 <div class="list-group">
-                    <a href="#" class="list-group-item">图片</a>
+                    <a onclick="searchFile(6)" class="list-group-item">所有文件</a>
+                    <a onclick="searchFile(0)" class="list-group-item">图片</a>
                     <a onclick="searchFile(1)" class="list-group-item">文档</a>
-                    <a href="#" class="list-group-item">视频</a>
-                    <a href="#" class="list-group-item">音乐</a>
-                    <a href="#" class="list-group-item">文本</a>
-                    <a href="#" class="list-group-item">其他</a>
+                    <a onclick="searchFile(2)" class="list-group-item">视频</a>
+                    <a onclick="searchFile(3)" class="list-group-item">音乐</a>
+                    <a onclick="searchFile(4)" class="list-group-item">文本</a>
+                    <a onclick="searchFile(5)" class="list-group-item">其他</a>
                     <a href="#" class="list-group-item">我的分享</a>
                     <a href="#" class="list-group-item">回收站</a>
                 </div>

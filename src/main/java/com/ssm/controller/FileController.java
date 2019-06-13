@@ -5,7 +5,6 @@ import com.ssm.pojo.Msg;
 import com.ssm.pojo.User;
 import com.ssm.service.FileService;
 import com.ssm.service.UserService;
-import com.ssm.utils.ZipUtils;
 import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 import java.util.zip.ZipEntry;
@@ -43,7 +41,6 @@ public class FileController {
 
         //获得文件名称
         String upfileName = uploadFile.getOriginalFilename();
-        System.out.println(upfileName);
 
         //手动设置文件保存路径
         String upPath = "/Users/wannengqingnian/MyCode/NetworkDiskSharing/src/main/webapp/uploadfile/";
@@ -67,9 +64,9 @@ public class FileController {
         file.setFileName(upfileName);
         file.setFileSize(len);
         file.setSaveName(uuid+suffix);
+        file.setFileType(fileService.getFiletype(suffix));
+        System.out.println("fileService.getFiletype(suffix) = " + fileService.getFiletype(suffix));
         fileService.saveFile(file);
-
-        System.out.println(len);
 
         //把文件大小保存到用户表中
         userService.addFileSize(user, len);
@@ -81,14 +78,33 @@ public class FileController {
     //根据f类型查询文件
     @RequestMapping("/search")
     @ResponseBody
-    public Msg getAllFile(@RequestParam(value = "f", defaultValue = "1") int f, HttpSession session){
+    public Msg getAllFile(@RequestParam(value = "f", defaultValue = "5") int f, HttpSession session){
 
         //得到用户对象
         User user = (User) session.getAttribute("user");
-
+        //查询出所有该用户保存的文件
         List<File> list = fileService.selFileByUsername(user);
 
-        return Msg.success().add("list", list);
+        //返回所有文件
+        if (f == 6){
+            return Msg.success().add("list", list);
+        }
+
+        //在所有文件中找出所有符合文件类型的文件
+        List<File> typeList = new ArrayList<>();
+        for (File item : list) {
+            if (item.getFileType() == f){
+                typeList.add(item);
+            }
+        }
+
+        //如果符合类型文件不存在，返回失败
+        if (typeList.size() == 0){
+            return  Msg.fail().add("list", typeList);
+        }
+        System.out.println("中文");
+
+        return Msg.success().add("list", typeList);
     }
 
     //下载文件请求
@@ -197,8 +213,6 @@ public class FileController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
 
 
 

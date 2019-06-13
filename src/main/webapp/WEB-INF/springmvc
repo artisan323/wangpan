@@ -14,9 +14,22 @@
     <!--扫描注解-->
     <context:component-scan base-package="com.ssm.controller"></context:component-scan>
 
+
+    <!-- 支持mvc注解驱动 -->
+    <mvc:annotation-driven>
+        <mvc:message-converters
+                register-defaults="true">
+            <bean
+                    class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes"
+                          value="text/html;charset=UTF-8" />
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
     <!--注解驱动-->
     <!--相当于配置了HandlerMapping和HandlerAdapter-->
-    <mvc:annotation-driven></mvc:annotation-driven>
+    <!--<mvc:annotation-driven></mvc:annotation-driven>-->
 
     <!--静态资源-->
     <mvc:resources mapping="/static" location="/static/"></mvc:resources>
@@ -29,5 +42,7 @@
 
     <!--配置Mutipart解析器-->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
+
+
 
 </beans>
