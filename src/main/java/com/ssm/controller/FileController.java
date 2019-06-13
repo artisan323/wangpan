@@ -217,4 +217,15 @@ public class FileController {
 
 
     }
+
+    //创建文件夹
+    @RequestMapping("/mkdir")
+    public String mkdir(String dirname, HttpSession session){
+        System.out.println("mkdir :" + dirname);
+
+        User user = (User) session.getAttribute("user");
+        fileService.mkdir(dirname, user.getUsername());
+
+        return "menu";
+    }
 }

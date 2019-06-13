@@ -3,12 +3,12 @@ package com.ssm.service;
 import com.ssm.mapper.FileMapper;
 import com.ssm.pojo.File;
 import com.ssm.pojo.User;
-import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class FileService {
@@ -87,5 +87,32 @@ public class FileService {
 
     }
 
+    //创建文件夹
+    public boolean mkdir(String dirname, String username){
+
+        //文件路径
+        String path = "/Users/wannengqingnian/MyCode/NetworkDiskSharing/src/main/webapp/uploadfile/";
+        //String uuid = UUID.randomUUID().toString();
+
+        //创建文件夹
+        java.io.File file = new java.io.File(path + dirname);
+        if(!file.exists()){//如果文件夹不存在
+            file.mkdir();//创建文件夹
+
+            //保存到数据库
+            File dirFile = new File();
+            dirFile.setUserName(username);
+            dirFile.setFileType(6);
+            dirFile.setFileName(dirname);
+            dirFile.setFilePath(path);
+            dirFile.setFileSize(file.length());
+            dirFile.setSaveName(dirname);
+
+            fileMapper.insFile(dirFile);
+            return true;
+        }
+
+        return false;
+    }
 
 }
