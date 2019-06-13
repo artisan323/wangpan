@@ -2,6 +2,7 @@ package com.ssm.mapper;
 
 import com.ssm.pojo.File;
 import com.ssm.pojo.User;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 
@@ -17,5 +18,8 @@ public interface FileMapper {
 
     @Select("select * from file where fileId = #{id}")
     File selFileByFileId(int id);
+
+    @Delete("delete from file where fileId = #{id}")
+    void delFileById(int id);
 
 }

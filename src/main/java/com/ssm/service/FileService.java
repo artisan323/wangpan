@@ -115,4 +115,25 @@ public class FileService {
         return false;
     }
 
+    //删除单个文件
+    public void delFileById(int id){
+        fileMapper.delFileById(id);
+    }
+
+    //删除多个文件
+    public void delFileByIdList(String delids){
+
+        String[] ids = delids.split("-");
+
+        //获取所有下载的文件对象id
+        List<Integer> listId = new ArrayList<>();
+        for (int i = 0; i < ids.length; i++){
+            listId.add(Integer.parseInt(ids[i]));
+        }
+
+        //循环在数据中删除
+        for (int i = 0; i < listId.size(); i++){
+            fileMapper.delFileById(listId.get(i));
+        }
+    }
 }

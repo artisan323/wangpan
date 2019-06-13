@@ -90,9 +90,30 @@
             //发送请求
             location.href="/downs?downids="+downids;
         }
-        
+
+        //删除文件
         function deleteFile() {
+            var delids = "";
+            $.each($(".check_item:checked"), function () {
+                delids += $(this).parents("tr").find("td").eq(1).text()+"-";
+            });
+            //去除多余-
+            delids = delids.substring(0, delids.length-1);
+
             alert("删除文件");
+            alert(delids);
+
+            //发送请求
+            //location.href="/del?delids="+delids;
+
+            $.ajax({
+                url:"${APP_PATH}/del",
+                data:"delids="+delids,
+                type:"GET",
+                success:function (result) {
+                    alert(result.extend.success);
+                }
+            });
         }
 
     </script>
