@@ -90,6 +90,10 @@
             //发送请求
             location.href="/downs?downids="+downids;
         }
+        
+        function deleteFile() {
+            alert("删除文件");
+        }
 
     </script>
 </head>
@@ -137,46 +141,93 @@
 
                 <%--顶部导航栏--%>
                 <div class="navbar navbar-default">
-
-                    <%--上传文件--%>
                     <div class="container">
-                        <form action="/file" method="post" enctype="multipart/form-data">
-                            <input type="file" name="uploadFile" class="btn btn-default"/>
-                            <input type="submit" value="上传" class="btn"/>
-                        </form>
-                    </div>
 
+                        <%--上传文件--%>
+                        <div class="nav navbar-nav">
+                            <%--<form action="/file" method="post" enctype="multipart/form-data">--%>
+                                <%--<input type="file" name="uploadFile" class="btn btn-default"/>--%>
+                                <%--<input type="submit" value="上传" class="btn"/>--%>
+                            <%--</form>--%>
 
-                    <%--新建文件夹--%>
-                    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#new_dir_modall" data-whatever="@getbootstrap">
-                        新建文件夹
-                    </button>
+                            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#upload_modall" data-whatever="@getbootstrap">
+                                <span class="glyphicon glyphicon-cloud-upload"></span>
+                                上传文件
+                            </button>
+                            <%--上传文件模态框--%>
+                            <div class="modal fade" id="upload_modall" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="exampleModalLabel">上传文件</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="/file" method="post" enctype="multipart/form-data">
+                                                <div class="form-group">
+                                                    <label for="message-text" class="control-label">上传</label>
+                                                    <input type="file" name="uploadFile" class="btn btn-default">
+                                                </div>
 
-                        <div class="modal fade" id="new_dir_modall" tabindex="-1" ro    le="dialog" aria-labelledby="exampleModalLabel">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title" id="exampleModalLabel">新建文件夹</h4>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                                    <button type="submit" class="btn btn-primary" >提交</button>
+                                                </div>
+                                            </form>
+                                        </div>
+
                                     </div>
-                                    <div class="modal-body">
-                                        <form action="/mkdir" method="post">
-                                            <div class="form-group">
-                                                <label for="message-text" class="control-label">文件夹名称</label>
-                                                <input class="form-control" id="message-text" name="dirname">
-                                            </div>
-
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                                                <button type="submit" class="btn btn-primary" >确定</button>
-                                            </div>
-                                        </form>
-                                    </div>
-
                                 </div>
                             </div>
+
                         </div>
 
+
+                        <%--新建文件夹--%>
+                        <div class="nav navbar-nav">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#new_dir_modall" data-whatever="@getbootstrap">
+                                <span class="glyphicon glyphicon-folder-open"></span>
+                                新建文件夹
+                            </button>
+                        </div>
+
+                        <%--删除文件--%>
+                        <div class="nav navbar-nav">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button id="del_check" class="btn btn-warning btn-sm" onclick="deleteFile()">
+                                <span class="glyphicon glyphicon-trash"></span>
+                                删除文件
+                            </button>
+                        </div>
+
+                        <%--新建文件夹模态框--%>
+                        <div class="modal fade" id="new_dir_modall" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="exampleModalLabel">新建文件夹</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="/mkdir" method="post">
+                                        <div class="form-group">
+                                            <label for="message-text" class="control-label">文件夹名称</label>
+                                            <input class="form-control" id="message-text" name="dirname">
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                            <button type="submit" class="btn btn-primary" >确定</button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    </div>
                 </div>
 
                 <%--显示文件列表--%>
