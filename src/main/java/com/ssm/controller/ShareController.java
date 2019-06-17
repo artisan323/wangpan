@@ -1,6 +1,5 @@
 package com.ssm.controller;
 
-import com.ssm.mapper.ShareMapper;
 import com.ssm.pojo.Msg;
 import com.ssm.pojo.Share;
 import com.ssm.pojo.User;
