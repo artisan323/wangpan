@@ -43,8 +43,14 @@
                 var filename = $("<td></td>").append(item.fileName);
                 var downicon = $("<button></button>").addClass("btn btn-primary btn-sm downfile")
                     .append($("<span></span>").addClass("glyphicon glyphicon-download-alt"));
+                //var rename = $("<button></button>").addClass("btn btn-primary btn-sm renamefile").append("重命名");
+
                 //为下载按钮添加自定义属性保存文件id
                 downicon.attr("fileid", item.fileId);
+
+                //为重命名按钮添加自定义属性保存文件id
+                //rename.attr("renameid", item.fileId);
+
 
                 var filesize = $("<td></td>").append(item.fileSize);
 
@@ -54,6 +60,7 @@
                     .append(filename)
                     .append(filesize)
                     .append(downicon)
+                    //.append(rename)
                     .appendTo("#emp_table tbody");
 
             });
@@ -115,6 +122,30 @@
                     //window.location.reload();
                 }
             });
+        }
+        
+        //重命名
+        function rename() {
+            var rename = $("#rename").val();
+            alert(rename);
+            var renameId = "";
+            $.each($(".check_item:checked"), function () {
+                renameId = $(this).parents("tr").find("td").eq(1).text();
+            });
+            alert(renameId);
+            if (rename == null || renameId == null){
+                alert("没有输入新名称或没有选中需要修改的文件");
+            } else {
+                $.ajax({
+                    url:"${APP_PATH}/rename",
+                    data:"renameId="+renameId + "&fileNewName="+rename,
+                    type:"GET",
+                    success:function (result) {
+                        alert("返回成功");
+                    }
+                });
+            }
+
         }
     </script>
 </head>
@@ -220,6 +251,17 @@
                                 <span class="glyphicon glyphicon-trash"></span>
                                 删除文件
                             </button>
+                        </div>
+
+
+                        <%--文件重命名--%>
+                        <div class="nav navbar-nav">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button id="del_check" class="btn btn-primary btn-sm" onclick="rename()">
+                                文件重命名
+                            </button>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="text" name="rename" value="请输入新文件名称" id="rename">
                         </div>
 
                         <%--新建文件夹模态框--%>

@@ -6,6 +6,7 @@ import com.ssm.pojo.User;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.net.FileNameMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -151,5 +152,13 @@ public class FileService {
         for (int i = 0; i < listId.size(); i++){
             fileMapper.delFileById(listId.get(i));
         }
+    }
+
+    //文件重命名
+    public void fileRename(int filleId, String fielNewName){
+        File file = new File();
+        file.setFileId(filleId);
+        file.setFileName(fielNewName);
+        fileMapper.upFileName(file);
     }
 }

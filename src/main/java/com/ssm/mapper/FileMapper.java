@@ -5,6 +5,7 @@ import com.ssm.pojo.User;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -24,4 +25,7 @@ public interface FileMapper {
 
     @Select("select fileType from file where fileId = #{id}")
     int selFileTypeById(int id);
+
+    @Update("update file set fileName = #{fileName} where fileId = #{fileId}")
+    void upFileName(File file);
 }

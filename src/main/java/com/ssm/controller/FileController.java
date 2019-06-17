@@ -248,4 +248,13 @@ public class FileController {
         fileService.mkdir(dirname, user.getUsername());
         return "menu";
     }
+
+    //文件重命名
+    @RequestMapping("/rename")
+    @ResponseBody
+    public String rename(int renameId, String fileNewName){
+        fileService.fileRename(renameId, fileNewName);
+        System.out.println(renameId + fileNewName);
+        return "menu";
+    }
 }
