@@ -2,6 +2,7 @@ package com.ssm.controller;
 
 import com.ssm.pojo.File;
 import com.ssm.pojo.Msg;
+import com.ssm.pojo.Share;
 import com.ssm.pojo.User;
 import com.ssm.service.FileService;
 import com.ssm.service.UserService;
@@ -269,5 +270,16 @@ public class FileController {
             return Msg.fail();
         }
         return Msg.success().add("list", list);
+    }
+
+    //文件分享
+    @RequestMapping("/share")
+    @ResponseBody
+    public Msg share(int shareId){
+        Share share = fileService.share(shareId);
+        if (share == null){
+            return Msg.fail();
+        }
+        return Msg.success().add("share", share);
     }
 }

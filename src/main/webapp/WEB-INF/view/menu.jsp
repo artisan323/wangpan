@@ -167,6 +167,24 @@
             }
         }
 
+        //文件分享
+        function share() {
+            var shareId = "";
+            $.each($(".check_item:checked"), function () {
+                shareId = $(this).parents("tr").find("td").eq(1).text();
+            });
+            alert(shareId);
+            $.ajax({
+               url:"${APP_PATH}/share",
+                data:"shareId="+shareId,
+                type:"GET",
+                success:function (result) {
+                    alert("返回成功");
+                    alert(result.extend.share.shareUrl);
+                }
+            });
+        }
+
     </script>
 </head>
 <body>
@@ -279,11 +297,20 @@
                         <%--文件重命名--%>
                         <div class="nav navbar-nav">
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <button id="del_check" class="btn btn-primary btn-sm" onclick="rename()">
+                            <button  class="btn btn-primary btn-sm" onclick="rename()">
                                 文件重命名
                             </button>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <input type="text" name="rename" value="请输入新文件名称" id="rename">
+                        </div>
+
+                        <%--文件分享--%>
+                        <div class="nav navbar-nav">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button  class="btn btn-primary btn-sm" onclick="share()">
+                                分享
+                            </button>
+
                         </div>
 
                         <%--新建文件夹模态框--%>

@@ -1,8 +1,11 @@
 package com.ssm.service;
 
 import com.ssm.mapper.FileMapper;
+import com.ssm.mapper.ShareMapper;
 import com.ssm.pojo.File;
+import com.ssm.pojo.Share;
 import com.ssm.pojo.User;
+import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -16,6 +19,9 @@ public class FileService {
 
     @Resource
     FileMapper fileMapper;
+
+    @Resource
+    ShareMapper shareMapper;
 
     //保存文件
     public void saveFile(File file){
@@ -171,6 +177,22 @@ public class FileService {
         //把文件后缀也存入数据库
         file.setFileName(fielNewName+suffix);
 
+
+
         fileMapper.upFileName(file);
+    }
+
+    //文件分享
+    public Share share(int shareId){
+        File file = fileMapper.selFileByFileId(shareId);
+
+        Share share = new Share();
+        share.setShareUser(file.getUserName());
+        share.setStatus(1);
+        share.setShareUrl("https://localhost:8080/upload/"+file.getSaveName());
+
+        shareMapper.saveShare(share);
+
+        return share;
     }
 }
