@@ -189,8 +189,10 @@ public class FileService {
         Share share = new Share();
         share.setShareUser(file.getUserName());
         share.setStatus(1);
+
         share.setShareFileName(file.getFileName());
         share.setShareUrl("https://localhost:8080/uploadfile/"+file.getSaveName());
+
 
         shareMapper.saveShare(share);
 

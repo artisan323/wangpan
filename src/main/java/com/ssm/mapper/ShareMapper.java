@@ -1,6 +1,7 @@
 package com.ssm.mapper;
 
 import com.ssm.pojo.Share;
+
 import com.ssm.pojo.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
@@ -15,4 +16,5 @@ public interface ShareMapper {
 
     @Select("select * from share where shareUser = #{username}")
     List<Share> selShare(User user);
+
 }

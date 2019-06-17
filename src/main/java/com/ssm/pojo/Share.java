@@ -8,6 +8,7 @@ public class Share {
     private String shareUser;
     private int status;
     private String command;
+
     private String shareFileName;
 
     public String getShareFileName() {
