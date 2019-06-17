@@ -42,6 +42,10 @@ public class FileService {
         return list;
     }
 
+    public List<File> selFileByFileName(String fileName){
+        return fileMapper.selFileByFileName(fileName);
+    }
+
     //按照文件名称下载文件
     public File selFileByFileId(int id){
         return fileMapper.selFileByFileId(id);
@@ -156,9 +160,17 @@ public class FileService {
 
     //文件重命名
     public void fileRename(int filleId, String fielNewName){
+
+        //先取出数据，把文件后缀保存起来
+        String upfileName = fileMapper.selFileByFileId(filleId).getFileName();
+        String suffix = upfileName.substring(upfileName.lastIndexOf("."));
+
+        //创建文件对象
         File file = new File();
         file.setFileId(filleId);
-        file.setFileName(fielNewName);
+        //把文件后缀也存入数据库
+        file.setFileName(fielNewName+suffix);
+
         fileMapper.upFileName(file);
     }
 }

@@ -66,7 +66,6 @@
             });
         }
 
-
         //点击下载按钮下载文件添加绑定事件
         $(document).on("click", ".downfile", function () {
             //获取id值
@@ -83,7 +82,6 @@
             //     }
             // })
         }
-
 
         //点击批量下载，下载多个文件
         function downcheck() {
@@ -147,6 +145,28 @@
             }
 
         }
+
+        //按照文件名称查找文件
+        function selFile() {
+            var selName = $("#selName").val();
+            alert(selName);
+            if (selName == null){
+                alert("请输入需要查询的文件名称");
+            } else {
+                $.ajax({
+                    url:"${APP_PATH}/selfile",
+                    data:"selName="+selName,
+                    type:"GET",
+                    success:function (result) {
+                        if (result.code == 400){
+                            alert("查询结果为空");
+                        }
+                        build_emps_table(result);
+                    }
+                });
+            }
+        }
+
     </script>
 </head>
 <body>
@@ -185,6 +205,8 @@
                     <a onclick="searchFile(5)" class="list-group-item">其他</a>
                     <a href="#" class="list-group-item">我的分享</a>
                     <a href="#" class="list-group-item">回收站</a>
+                    <a onclick="selFile()" class="list-group-item">文件查询</a>
+                    <input type="text" id="selName" name="selName" value="输入查询名称" class="list-group-item">
                 </div>
             </div>
 

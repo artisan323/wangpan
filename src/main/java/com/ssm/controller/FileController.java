@@ -257,4 +257,17 @@ public class FileController {
         System.out.println(renameId + fileNewName);
         return "menu";
     }
+
+    //按照文件名查询文件
+    @RequestMapping("/selfile")
+    @ResponseBody
+    public Msg selfile(String selName){
+
+        List<File> list = fileService.selFileByFileName(selName);
+
+        if (list.size() == 0){
+            return Msg.fail();
+        }
+        return Msg.success().add("list", list);
+    }
 }
