@@ -33,6 +33,7 @@
 
     <!--静态资源-->
     <mvc:resources mapping="/static" location="/static/"></mvc:resources>
+    <mvc:resources mapping="/uploadfile/**" location="/uploadfile/"></mvc:resources>
 
     <!--配置视图解析器-->
     <bean id="ViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">

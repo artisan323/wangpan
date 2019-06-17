@@ -167,6 +167,51 @@
             }
         }
 
+        //文件分享
+        function share() {
+            var shareId = "";
+            $.each($(".check_item:checked"), function () {
+                shareId = $(this).parents("tr").find("td").eq(1).text();
+            });
+            alert(shareId);
+            $.ajax({
+               url:"${APP_PATH}/share",
+                data:"shareId="+shareId,
+                type:"GET",
+                success:function (result) {
+                    alert("返回成功");
+                    alert(result.extend.share.shareUrl);
+                }
+            });
+        }
+
+        //显示分享列表
+        function shareList() {
+            //每次加载页面都要先清空原理来数据
+            $("#share_table tbody").empty();
+            //发送ajax请求，获取数据
+            $.ajax({
+               url:"${APP_PATH}/sharelist",
+               success:function (result) {
+                   var share = result.extend.list;
+                   $.each(share, function (index, item) {
+
+                       var shareId = $("<td></td>").append(item.shareId)
+                       var shareUrl = $("<td></td>").append(item.shareUrl);
+                       var shareName = $("<td></td>").append(item.shareFileName);
+
+
+                       $("<tr></tr>")
+                           .append(shareId)
+                           .append(shareName)
+                           .append(shareUrl)
+                           .appendTo("#share_table tbody");
+
+                   });
+               } 
+            });
+        }
+
     </script>
 </head>
 <body>
@@ -203,12 +248,42 @@
                     <a onclick="searchFile(3)" class="list-group-item">音乐</a>
                     <a onclick="searchFile(4)" class="list-group-item">文本</a>
                     <a onclick="searchFile(5)" class="list-group-item">其他</a>
-                    <a href="#" class="list-group-item">我的分享</a>
+                    <a onclick="shareList()" class="list-group-item" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">我的分享</a>
                     <a href="#" class="list-group-item">回收站</a>
                     <a onclick="selFile()" class="list-group-item">文件查询</a>
                     <input type="text" id="selName" name="selName" value="输入查询名称" class="list-group-item">
                 </div>
             </div>
+            <%--我的分享模态框--%>
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="exampleModalLabel">我的分享</h4>
+                            </div>
+                            <div class="modal-body">
+                                <table class="table table-hover" id="share_table">
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>分享文件名</th>
+                                            <th>链接</th>
+
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             <%--右侧栏--%>
             <div class="col-sm-9">
@@ -279,11 +354,20 @@
                         <%--文件重命名--%>
                         <div class="nav navbar-nav">
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <button id="del_check" class="btn btn-primary btn-sm" onclick="rename()">
+                            <button  class="btn btn-primary btn-sm" onclick="rename()">
                                 文件重命名
                             </button>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <input type="text" name="rename" value="请输入新文件名称" id="rename">
+                        </div>
+
+                        <%--文件分享--%>
+                        <div class="nav navbar-nav">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button  class="btn btn-primary btn-sm" onclick="share()">
+                                分享
+                            </button>
+
                         </div>
 
                         <%--新建文件夹模态框--%>
