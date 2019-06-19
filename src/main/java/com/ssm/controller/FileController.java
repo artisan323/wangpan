@@ -115,6 +115,7 @@ public class FileController {
 
         //得到文件名称
         File myfile = fileService.selFileByFileId(fileId);
+
         String filename = myfile.getSaveName();
         System.out.println(myfile);
 
@@ -215,8 +216,6 @@ public class FileController {
             e.printStackTrace();
         }
 
-
-
     }
 
     //单文件删除和多文件删除
@@ -224,12 +223,6 @@ public class FileController {
     @ResponseBody
     public Msg del(String delids){
 
-
-        //单文件夹删除
-//        int dir = Integer.parseInt(delids);
-//        if (fileService.selFileTypeById(dir) == 6){
-//
-//        }
 
         if (delids.contains("-") == false){
             //删除单文件

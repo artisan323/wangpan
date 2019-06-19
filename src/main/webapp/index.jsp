@@ -56,6 +56,7 @@
     </style>`
 </head>
 <body>
+
     <form class="form-signin" method="post" action="/login">
         <h1 class="h3 mb-3 font-weight-normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请登录</h1>
@@ -65,5 +66,6 @@
         <button class="btn btn-lg btn-primary btn-block" type="submit">登陆</button>
         <button class="btn btn-lg btn-primary btn-block" onclick="location.href='/register'">注册</button>
     </form>
+
 </body>
 </html>

@@ -19,6 +19,8 @@ public class LoginResController {
     public String login(HttpServletRequest request, String username, String password){
 
         System.out.println(username + password);
+
+        //从数据库查找用户
         User isUser =  userservice.findByName(username);
 
         if (username == null || password == null){
