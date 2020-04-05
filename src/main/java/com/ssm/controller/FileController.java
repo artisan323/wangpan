@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
+import static com.ssm.util.FileSizeUtil.getNetFileSizeDescription;
 
 
 @Controller
@@ -32,6 +33,13 @@ public class FileController {
 
     @Resource
     UserService userService;
+
+    //上传文件路径
+    private final String LINUX_PATH = "/home/upFile/";
+    private final String PC_PATH = "/Users/wannengqingnian/MyCode/NetworkDiskSharing/src/main/webapp/uploadfile/";
+    //下载路径
+    private final String DOWN_PATH = "/home/upFile";
+
 
     //处理上传文件
     @RequestMapping("/file")
@@ -44,7 +52,8 @@ public class FileController {
         String upfileName = uploadFile.getOriginalFilename();
 
         //手动设置文件保存路径
-        String upPath = "/Users/wannengqingnian/MyCode/NetworkDiskSharing/src/main/webapp/uploadfile/";
+//        String upPath = "/Users/wannengqingnian/MyCode/NetworkDiskSharing/src/main/webapp/uploadfile/";
+        String upPath = LINUX_PATH;
 
         //通过随机数来设置文件保存时名称
         String suffix = upfileName.substring(upfileName.lastIndexOf("."));
@@ -58,12 +67,13 @@ public class FileController {
 
         //获取文件大小
         Long len = uploadFile.getSize();
+        String size = getNetFileSizeDescription(len);
 
         //保存到file表中
         file.setUserName(user.getUsername());
         file.setFilePath(upPath);
         file.setFileName(upfileName);
-        file.setFileSize(len);
+        file.setFileSize(size);
         file.setSaveName(uuid+suffix);
         file.setFileType(fileService.getFiletype(suffix));
         System.out.println("fileService.getFiletype(suffix) = " + fileService.getFiletype(suffix));
@@ -121,7 +131,8 @@ public class FileController {
 
         res.setHeader("Content-Disposition", "attachment;filename=" + filename);
         ServletOutputStream so = res.getOutputStream();
-        String path = "/Users/wannengqingnian/MyCode/NetworkDiskSharing/src/main/webapp/uploadfile";
+//        String path = "/Users/wannengqingnian/MyCode/NetworkDiskSharing/src/main/webapp/uploadfile";
+        String path = DOWN_PATH;
         java.io.File file = new java.io.File(path, filename);
         byte[] bytes = FileUtils.readFileToByteArray(file);
         so.write(bytes);
@@ -149,7 +160,8 @@ public class FileController {
         //获取所有下载的文件对象id
         List<File> fileList = fileService.getFileList(listId);//查询数据库中记录
 
-        String path = "/Users/wannengqingnian/MyCode/NetworkDiskSharing/src/main/webapp/uploadfile/";
+//        String path = "/Users/wannengqingnian/MyCode/NetworkDiskSharing/src/main/webapp/uploadfile/";
+        String path = DOWN_PATH;
 
 
         //响应头的设置
@@ -275,4 +287,6 @@ public class FileController {
         }
         return Msg.success().add("share", share);
     }
+
+
 }

@@ -57,7 +57,7 @@
 </head>
 <body>
 
-    <form class="form-signin" method="post" action="/login">
+    <form class="form-signin" method="post" action="${APP_PATH}/login">
         <h1 class="h3 mb-3 font-weight-normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请登录</h1>
         <input type="text" id="inputtext" name="username" class="form-control" placeholder="用户名" required autofocus>

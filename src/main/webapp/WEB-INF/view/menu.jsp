@@ -12,7 +12,9 @@
     <script src="http://libs.baidu.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
     <script type="text/javascript">
-
+        $(function() {
+            searchFile(6);
+        }
 
         //根据选择的文件类型进行显示文件
         function searchFile(f) {
@@ -72,7 +74,7 @@
             getfileId($(this).attr("fileid"))
         })
         function getfileId(id) {
-            location.href="/down?fileId=" + id;
+            location.href="${APP_PATH}/down?fileId=" + id;
             // $.ajax({
             //     url:"/down",
             //     data:"fileId="+id,
@@ -118,6 +120,7 @@
                 success:function (result) {
                     alert(result.extend.success);
                     //window.location.reload();
+                    searchFile(6);
                 }
             });
         }
@@ -140,6 +143,7 @@
                     type:"GET",
                     success:function (result) {
                         alert("返回成功");
+                        searchFile(6)
                     }
                 });
             }
@@ -313,7 +317,7 @@
                                             <h4 class="modal-title" id="exampleModalLabel">上传文件</h4>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="/file" method="post" enctype="multipart/form-data">
+                                            <form action="${APP_PATH}/file" method="post" enctype="multipart/form-data">
                                                 <div class="form-group">
                                                     <label for="message-text" class="control-label">上传</label>
                                                     <input type="file" name="uploadFile" class="btn btn-default">
@@ -380,7 +384,7 @@
                                     <h4 class="modal-title" id="exampleModalLabel">新建文件夹</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="/mkdir" method="post">
+                                    <form action="${APP_PATH}/mkdir" method="post">
                                         <div class="form-group">
                                             <label for="message-text" class="control-label">文件夹名称</label>
                                             <input class="form-control" id="message-text" name="dirname">

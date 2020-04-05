@@ -5,6 +5,7 @@ import com.ssm.mapper.ShareMapper;
 import com.ssm.pojo.File;
 import com.ssm.pojo.Share;
 import com.ssm.pojo.User;
+import com.ssm.util.FileSizeUtil;
 import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Service;
 
@@ -120,7 +121,7 @@ public class FileService {
             dirFile.setFileType(6);
             dirFile.setFileName(dirname);
             dirFile.setFilePath(path);
-            dirFile.setFileSize(file.length());
+            dirFile.setFileSize(FileSizeUtil.getNetFileSizeDescription(file.length()));
             dirFile.setSaveName(dirname);
 
             fileMapper.insFile(dirFile);

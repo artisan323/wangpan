@@ -6,7 +6,7 @@ public class File {
     private String userName;
     private String filePath;
     private String fileName;
-    private Long fileSize;
+    private String fileSize;
     private int fileType;
     private String saveName;
 
@@ -26,11 +26,11 @@ public class File {
         this.fileType = fileType;
     }
 
-    public Long getFileSize() {
+    public String getFileSize() {
         return fileSize;
     }
 
-    public void setFileSize(Long fileSize) {
+    public void setFileSize(String fileSize) {
         this.fileSize = fileSize;
     }
 

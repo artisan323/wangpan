@@ -1,4 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="utf-8" %>
+<%
+    application.setAttribute("APP_PATH", request.getContextPath());
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -71,7 +74,7 @@
 <div id="login">
     <h1>Login</h1>
     <h3>${requestScope.msg}</h3>
-    <form method="post" action="/login">
+    <form method="post" action="${APP_PATH}/login">
         <input type="text" required="required" placeholder="用户名" name="username" >
         <input type="password" required="required" placeholder="密码" name="password">
         <button class="but" type="submit">登录</button>
