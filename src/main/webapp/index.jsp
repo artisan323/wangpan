@@ -64,7 +64,7 @@
         <input type="password" id="inputPassword" name="password" class="form-control" placeholder="密码" required>
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">登陆</button>
-        <button class="btn btn-lg btn-primary btn-block" onclick="location.href='/register'">注册</button>
+        <button class="btn btn-lg btn-primary btn-block"><a href="register.jsp">注册</a></button>
     </form>
 
 </body>

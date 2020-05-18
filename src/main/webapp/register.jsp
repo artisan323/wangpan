@@ -4,7 +4,7 @@
 %>
 <html>
 <head>
-    <title>拴蛋网盘</title>
+    <title>个人文档</title>
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="${APP_PATH}/static/css/Login.css" />
     <style type="text/css">
@@ -56,7 +56,7 @@
     </style>
 </head>
 <body>
-<form class="form-signin" method="post" action="/register2">
+<form class="form-signin" method="post" action="${APP_PATH}/register2">
     <h1 class="h3 mb-3 font-weight-normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注册</h1>
     <input type="text" id="inputtext" name="username" class="form-control" placeholder="用户名" required autofocus>

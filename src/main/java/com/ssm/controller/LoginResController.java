@@ -39,13 +39,13 @@ public class LoginResController {
 
     @RequestMapping("register")
     public String register(){
-        return "register";
+        return "/register.jsp";
     }
 
     @RequestMapping("register2")
     public String register2(HttpServletRequest request,User user) {
         if (user.getUsername() == null || user.getPassword() == null) {
-            return "register";
+            return "/register.jsp";
         } else {
             System.out.println(user.toString());
             //判断数据库是不是有该用户
@@ -55,10 +55,10 @@ public class LoginResController {
                 //往数据库添加新用户
                 userservice.addNewNameSpace(user);
                 //返回登陆页面
-                return "redirect:/menu.jsp";
+                return "redirect:/index.jsp";
             } else {
                 request.setAttribute("msg", "注册失败");
-                return "register";
+                return "redirect:/register.jsp";
             }
         }
     }

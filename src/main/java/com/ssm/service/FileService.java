@@ -24,7 +24,10 @@ public class FileService {
     @Resource
     ShareMapper shareMapper;
 
-    //保存文件
+    /**
+     * 保存文件
+     * @param file
+     */
     public void saveFile(File file){
         fileMapper.insFile(file);
     }
@@ -167,19 +170,14 @@ public class FileService {
 
     //文件重命名
     public void fileRename(int filleId, String fielNewName){
-
         //先取出数据，把文件后缀保存起来
         String upfileName = fileMapper.selFileByFileId(filleId).getFileName();
         String suffix = upfileName.substring(upfileName.lastIndexOf("."));
-
         //创建文件对象
         File file = new File();
         file.setFileId(filleId);
         //把文件后缀也存入数据库
         file.setFileName(fielNewName+suffix);
-
-
-
         fileMapper.upFileName(file);
     }
 

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%><html>
 <head>
-    <title>拴蛋网盘</title>
+    <title>个人文档</title>
     <meta charset="UTF-8">
 
     <%
@@ -12,10 +12,6 @@
     <script src="http://libs.baidu.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
     <script type="text/javascript">
-        $(function() {
-            searchFile(6);
-        }
-
         //根据选择的文件类型进行显示文件
         function searchFile(f) {
             $.ajax({
@@ -95,7 +91,7 @@
             //去除多余-
             downids = downids.substring(0, downids.length-1);
             //发送请求
-            location.href="/downs?downids="+downids;
+            location.href="${APP_PATH}/downs?downids="+downids;
         }
 
         //删除文件
@@ -224,12 +220,12 @@
     <div class="navbar navbar-default">
         <div class="container">
             <div class="navbar-header">
-                <div class="navbar-brand">拴蛋网盘</div>
+                <div class="navbar-brand">个人文档</div>
             </div>
 
-            <ul class="nav navbar-nav">
-                <li><a href="#">网盘</a></li>
-            </ul>
+<%--            <ul class="nav navbar-nav">--%>
+<%--                <li><a href`="#">网盘</a></li>--%>
+<%--            </ul>--%>
 
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#">${sessionScope.user.username}</a> </li>

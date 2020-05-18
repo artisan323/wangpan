@@ -59,7 +59,7 @@ public class FileController {
         String suffix = upfileName.substring(upfileName.lastIndexOf("."));
         String uuid = UUID.randomUUID().toString();
 
-        //保存文件到本地
+        //保存文件到本地 文件工具类的方法保存上传的文件到本地
         FileUtils.copyInputStreamToFile(uploadFile.getInputStream(), new java.io.File(upPath+uuid+suffix));
 
         //得到用户对象
@@ -69,7 +69,7 @@ public class FileController {
         Long len = uploadFile.getSize();
         String size = getNetFileSizeDescription(len);
 
-        //保存到file表中
+        //保存到file表中   把上传文件的各个属性保存成一个一个文件对象
         file.setUserName(user.getUsername());
         file.setFilePath(upPath);
         file.setFileName(upfileName);
@@ -94,7 +94,9 @@ public class FileController {
         //得到用户对象
         User user = (User) session.getAttribute("user");
         //查询出所有该用户保存的文件
+        System.out.printf(user.toString());
         List<File> list = fileService.selFileByUsername(user);
+        System.out.printf(list.toString());
 
         //返回所有文件
         if (f == 6){
